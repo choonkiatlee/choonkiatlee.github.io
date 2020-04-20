@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>My New Hugo Site</title>
-    <link>http://example.org/</link>
+    <link>choonkiatlee.github.io/</link>
     <description>Recent content on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 20 Apr 2020 17:04:49 +0800</lastBuildDate>
     
-	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="choonkiatlee.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>First_post</title>
-      <link>http://example.org/posts/first_post/</link>
+      <link>choonkiatlee.github.io/posts/first_post/</link>
       <pubDate>Mon, 20 Apr 2020 17:04:49 +0800</pubDate>
       
-      <guid>http://example.org/posts/first_post/</guid>
+      <guid>choonkiatlee.github.io/posts/first_post/</guid>
       <description>TIL: Setting up Hugo to work with Github Pages Unlike Jekyll, Hugo does not work with Github Pages out of the box.</description>
     </item>
     
