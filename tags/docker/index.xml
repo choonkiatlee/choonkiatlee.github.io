@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on Choon Kiat (CK)</title>
+    <link>/tags/docker/</link>
+    <description>Recent content in Docker on Choon Kiat (CK)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 20 Apr 2020 23:45:41 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Raspbian on your laptop: QEMU</title>
+      <link>/posts/00002-raspbian-docker/</link>
+      <pubDate>Mon, 20 Apr 2020 23:45:41 +0800</pubDate>
+      
+      <guid>/posts/00002-raspbian-docker/</guid>
+      <description>TLDR qemu-raspbian is a docker image that allows you to run a fast raspbian image built for ARM directly on your x86 desktop.</description>
+    </item>
+    
+  </channel>
+</rss>

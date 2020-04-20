@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Raspbian on your laptop: QEMU &middot; Curious Koala
+    
+  </title>
+
+  
+  <link rel="stylesheet" href="/css/poole.css">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/lanyon.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700|PT+Sans:400">
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/assets/favicon.ico">
+
+  
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml">
+</head>
+
+
+  <body>
+
+    
+<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+
+
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-item">
+    <p>Clinging on to the pursuit of knowledge</p>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-nav-item " href="/">Home</a>
+    <a class="sidebar-nav-item " href="/post">Posts</a><a class="sidebar-nav-item" href="/about/" title="">About</a><a class="sidebar-nav-item" href="/categories/" title="Categories Section">Categories</a>
+    </nav>
+
+  <div class="sidebar-item">
+    <p>&copy; 2020. All rights reserved.</p>
+  </div>
+</div>
+
+
+    
+    <div class="wrap">
+      <div class="masthead">
+        <div class="container">
+          <h3 class="masthead-title">
+            <a href="/" title="Home">Curious Koala</a>
+            <small>Choon Kiat (CK)</small>
+          </h3>
+        </div>
+      </div>
+
+      <div class="container content">
+
+
+<div class="post">
+  <h1 class="post-title">Raspbian on your laptop: QEMU</h1>
+  <span class="post-date">20 Apr 2020</span>
+  <h2 id="tldr">TLDR</h2>
+<p><code>qemu-raspbian</code> is a docker image that allows you to run a fast raspbian image built for ARM directly on your x86 desktop. Test it out here:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">docker run -it --rm choonkiatlee/raspbian:faithful
+</code></pre></div><h2 id="motivation">Motivation</h2>
+<p>Recently, I&rsquo;ve been very interested in running machine learning algorithms on edge devices such as the Raspberry Pi.</p>
+<p>Pytorch has released a new <a href="https://pytorch.org/docs/stable/jit.html">JIT</a> compilation feature. As explained in the linked documentation:</p>
+<blockquote>
+<p>TorchScript is a way to create serializable and optimizable models from PyTorch code. Any TorchScript program can be saved from a Python process and loaded in a process where there is no Python dependency.</p>
+</blockquote>
+<p>However, I could not find any pre-compiled pytorch wheels for my Raspberry Pi. Thus, I decided to compile my own wheels. However, the compilation process takes really long (&gt;36 hours) and so I decided to try leverage my own computer (or an Azure VM) to do the job for me instead.</p>
+<h2 id="first-steps-qemu">First steps: QEMU</h2>
+<p>I was first inspired by @nmilosev&rsquo;s article <a href="https://nmilosev.svbtle.com/compling-arm-stuff-without-an-arm-board-build-pytorch-for-the-raspberry-pi%5D">https://nmilosev.svbtle.com/compling-arm-stuff-without-an-arm-board-build-pytorch-for-the-raspberry-pi</a>.</p>
+<p>The gist of the solution is that we can use the QEMU emulator to run programs compiled for ARM on our own x86 host machine. Using the qemu-user programs, we can use QEMU in the <code>User-mode emulation</code> operation mode. In this mode, QEMU can launch Linux processes compiled for one CPU (Raspberry Pi) on another CPU (x86_64 host), and will translate syscalls on the fly. This way, we are still interfacing with the native kernel in the same way as any native piece of software.</p>
+<p>&lt; Insert Image here&gt;</p>
+<p>This brings much benefits as we no longer have to emulate all the hardware, which is slow. We also do not need to emulate the kernel, which is where most of the emulation computation takes place.</p>
+<p>Once we&rsquo;ve installed the QEMU user emulation software, we can run the Raspbian bash whilst mounting the Raspbian rootFS, which gives us a bash shell that for most intents and purposes mimics one running on the RPI!</p>
+<ol>
+<li>
+<p>Install the QEMU emulation software</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># First, install the QEMU software</span>
+sudo apt-get update <span style="color:#f92672">&amp;&amp;</span> sudo apt-get install  -y --no-install-recommends qemu binfmt-support qemu-user-static
+</code></pre></div></li>
+<li>
+<p>Mount or create a raspbian filesystem. You can either create a minimal rootfs from scratch using debootstrap or mount a pre-created raspbian image (eg: from the Raspberry Pi Foundation release).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 1. Create a minimal rootfs from scratch</span>
+mkdir ~/rpi_mnt
+
+wget --no-check-certificate https://archive.raspbian.org/raspbian.public.key -O - | sudo apt-key add -q
+
+sudo qemu-debootstrap --variant<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;minbase&#39;</span> 
+                --keyring<span style="color:#f92672">=</span>/etc/apt/trusted.gpg <span style="color:#ae81ff">\</span>
+                --include<span style="color:#f92672">=</span>python3,git,python3-pip <span style="color:#ae81ff">\</span>
+                --arch armhf buster ~/rpi_mnt http://archive.raspbian.org/raspbian 
+</code></pre></div><p>Or</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 2. Mount an existing Raspbian Image</span>
+           
+<span style="color:#75715e"># (Optional) Download the official Raspbian Image</span>
+wget https://downloads.raspberrypi.org/raspbian_lite_latest
+unzip raspbian_lite_latest
+
+sudo losetup -f -P --show *-raspbian-*.img
+sudo mount /dev/loop0p2 -o rw ~/rpi_mnt
+</code></pre></div></li>
+<li>
+<p>Prepare for chroot</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Copy the quemu-arm-static binary into the image to be produced</span>
+sudo cp /usr/bin/qemu-arm-static rpi_mnt/usr/bin
+
+<span style="color:#75715e"># Backup /etc/ld.so.preload and remove it before chrooting in.</span>
+sudo mv ~/rpi_mnt/etc/ld.so.preload ~/rpi_mnt/etc/ld.so.preload.backup
+sudo touch ~/rpi_mnt/etc/ld.so.preload
+
+<span style="color:#75715e"># (Optional) -- Before chrooting in, mount device specific files from the host. Be careful though! Improper editing of these files can cause your host system to crash</span>
+<span style="color:#75715e"># mount --bind /dev ~/rpi_mnt/dev/</span>
+<span style="color:#75715e"># mount --bind /sys ~/rpi_mnt/sys/</span>
+<span style="color:#75715e"># mount --bind /proc ~/rpi_mnt/proc/</span>
+<span style="color:#75715e"># mount --bind /dev/pts ~/rpi_mnt/dev/pts</span>
+</code></pre></div></li>
+<li>
+<p>Actually chroot in.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Preferably, use systemd-nspawn instead if your host system uses systemd. This is best practice and does a better job of islating the chroot environment from your host system</span>
+
+sudo apt-get install systemd-container
+systemd-nspawn -D ~/rpi_mnt bin/bash
+</code></pre></div><p>Or</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Alternatively, chroot in</span>
+chroot . ~/rpi_mntbin/bash    
+
+<span style="color:#75715e"># Success!</span> 
+uname -a
+</code></pre></div></li>
+</ol>
+<p>This is extremely useful, and allows you to easily edit and test your distribution before you burn it to an SD card for the RPi!</p>
+<p>However, this involves a lot of steps, and is hard to automate. In the next post, we will discuss how to create a docker container using the principles listed here to create our Raspbian docker image!</p>
+</div>
+
+      </div>
+    </div>
+
+    <label for="sidebar-checkbox" class="sidebar-toggle"></label>
+    
+    
+  </body>
+</html>
+
