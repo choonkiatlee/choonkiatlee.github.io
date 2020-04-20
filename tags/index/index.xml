@@ -11,9 +11,18 @@
     
     
     <item>
+      <title>Projects</title>
+      <link>/projects/</link>
+      <pubDate>Tue, 21 Apr 2020 04:03:11 +0800</pubDate>
+      
+      <guid>/projects/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Posts</title>
       <link>/posts/</link>
-      <pubDate>Mon, 20 Apr 2020 23:45:41 +0800</pubDate>
+      <pubDate>Tue, 21 Apr 2020 02:26:39 +0800</pubDate>
       
       <guid>/posts/</guid>
       <description></description>

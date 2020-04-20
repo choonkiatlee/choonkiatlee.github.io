@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Choon Kiat (CK)</title>
+    <link>/projects/</link>
+    <description>Recent content in Projects on Choon Kiat (CK)</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 Apr 2020 04:03:11 +0800</lastBuildDate>
+    
+	<atom:link href="/projects/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Finderr</title>
+      <link>/projects/finderr/</link>
+      <pubDate>Tue, 21 Apr 2020 04:03:11 +0800</pubDate>
+      
+      <guid>/projects/finderr/</guid>
+      <description>TLDR: Empowering visually impaired users to live independent lives by allowing them to find their lost items.</description>
+    </item>
+    
+    <item>
+      <title>Archive</title>
+      <link>/projects/archive/</link>
+      <pubDate>Tue, 21 Apr 2020 02:26:39 +0800</pubDate>
+      
+      <guid>/projects/archive/</guid>
+      <description>This page contains an archive of all posts.</description>
+    </item>
+    
+    <item>
+      <title>Mars Lander</title>
+      <link>/projects/marslander/</link>
+      <pubDate>Tue, 21 Apr 2020 01:38:28 +0800</pubDate>
+      
+      <guid>/projects/marslander/</guid>
+      <description>Wrote a program that simulates the dynamics of a spacecraft and implemented a robust autopilot that could cope with high lag in the system</description>
+    </item>
+    
+  </channel>
+</rss>
