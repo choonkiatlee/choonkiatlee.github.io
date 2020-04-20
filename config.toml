@@ -1,4 +1,4 @@
-baseURL = "http://example.org/"
+baseURL = "https://choonkiatlee.github.io/"
 languageCode = "en-us"
 title = "My New Hugo Site"
 
@@ -8,6 +8,8 @@ DefaultContentLanguage = "en"
 enableInlineShortcodes = true
 summarylength = 10
 enableEmoji = true
+
+staticDir = "static"
 
 [params]
 description = ""

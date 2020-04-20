@@ -56,9 +56,7 @@ cd public
 git add .
 git commit -m "Initial commit of generated site"
 git push 
-
 ```
-
 
 Local directory setup: 
 ```
