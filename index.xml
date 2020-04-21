@@ -16,8 +16,8 @@
         <guid>/posts/00003-pi_torch/</guid>
         <description>&lt;h1 id=&#34;tldr&#34;&gt;TLDR:&lt;/h1&gt;
 &lt;p&gt;We used the raspbian image available &lt;a href=&#34;https://hub.docker.com/r/choonkiatlee/raspbian&#34;&gt;here&lt;/a&gt; to compile a version of Pytorch for the Raspberry Pi. This is an armv7l image that has been compiled with NEON optimisations and NNPACK / QNNPACK, allowing it to run decently fast on the resource constrained RPi.&lt;/p&gt;
-&lt;p&gt;These images can be found &lt;a href=&#34;https://github.com/choonkiatlee/pi-torch&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;More information about the QEMU user-mode emulation used in these images can be found [here] ( /posts/00002-raspbian-qemu/)&lt;/p&gt;
+&lt;p&gt;The compiled pytorch / torchvision wheels can be found &lt;a href=&#34;https://github.com/choonkiatlee/pi-torch&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;More information about the QEMU user-mode emulation used in the docker image can be found [here] ( /posts/00002-raspbian-qemu/)&lt;/p&gt;
 &lt;h2 id=&#34;build-process&#34;&gt;Build Process:&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;

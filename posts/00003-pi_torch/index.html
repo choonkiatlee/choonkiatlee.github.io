@@ -111,8 +111,8 @@
   <span class="post-date">21 Apr 2020</span>
   <h1 id="tldr">TLDR:</h1>
 <p>We used the raspbian image available <a href="https://hub.docker.com/r/choonkiatlee/raspbian">here</a> to compile a version of Pytorch for the Raspberry Pi. This is an armv7l image that has been compiled with NEON optimisations and NNPACK / QNNPACK, allowing it to run decently fast on the resource constrained RPi.</p>
-<p>These images can be found <a href="https://github.com/choonkiatlee/pi-torch">here</a>.</p>
-<p>More information about the QEMU user-mode emulation used in these images can be found [here] ( /posts/00002-raspbian-qemu/)</p>
+<p>The compiled pytorch / torchvision wheels can be found <a href="https://github.com/choonkiatlee/pi-torch">here</a>.</p>
+<p>More information about the QEMU user-mode emulation used in the docker image can be found [here] ( /posts/00002-raspbian-qemu/)</p>
 <h2 id="build-process">Build Process:</h2>
 <ol>
 <li>
