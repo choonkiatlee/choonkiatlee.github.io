@@ -6,7 +6,7 @@
     <description>Recent content in Categories on Choon Kiat (CK)</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Apr 2020 23:45:41 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 21 Apr 2020 17:45:41 +0800</lastBuildDate>
     
 	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Docker</title>
       <link>/categories/docker/</link>
-      <pubDate>Mon, 20 Apr 2020 23:45:41 +0800</pubDate>
+      <pubDate>Tue, 21 Apr 2020 17:45:41 +0800</pubDate>
       
       <guid>/categories/docker/</guid>
       <description></description>
@@ -23,7 +23,7 @@
     <item>
       <title>Raspberry Pi</title>
       <link>/categories/raspberry-pi/</link>
-      <pubDate>Mon, 20 Apr 2020 23:45:41 +0800</pubDate>
+      <pubDate>Tue, 21 Apr 2020 17:45:41 +0800</pubDate>
       
       <guid>/categories/raspberry-pi/</guid>
       <description></description>

@@ -9,13 +9,121 @@
 
     
       <item>
+        <title>Compiling Pytorch for the Raspberry Pi</title>
+        <link>/posts/00003-pi_torch/</link>
+        <pubDate>Tue, 21 Apr 2020 17:45:41 &#43;08</pubDate>
+        <author>Choon Kiat (CK)</author>
+        <guid>/posts/00003-pi_torch/</guid>
+        <description>&lt;h1 id=&#34;tldr&#34;&gt;TLDR:&lt;/h1&gt;
+&lt;p&gt;We used the raspbian image available &lt;a href=&#34;https://hub.docker.com/r/choonkiatlee/raspbian&#34;&gt;here&lt;/a&gt; to compile a version of Pytorch for the Raspberry Pi. This is an armv7l image that has been compiled with NEON optimisations and NNPACK / QNNPACK, allowing it to run decently fast on the resource constrained RPi.&lt;/p&gt;
+&lt;p&gt;These images can be found &lt;a href=&#34;https://github.com/choonkiatlee/pi-torch&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;More information about the QEMU user-mode emulation used in these images can be found [here] ( /posts/00002-raspbian-qemu/)&lt;/p&gt;
+&lt;h2 id=&#34;build-process&#34;&gt;Build Process:&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Install required dependencies on the host:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt-get update &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo apt-get install qemu qemu-user-static binfmt-support
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Run the docker container:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ docker run -it --name pytorch_builder choonkiatlee/raspbian:build
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Install dependencies in the container and collect pytorch sources&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;####################### In Docker Container #######################&lt;/span&gt;
+root@b0571199906e:/# apt-get update &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; apt-get install -y python3-cffi python3-numpy libatlas-base-dev
+
+root@b0571199906e:/# echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[global]
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;root@b0571199906e:/# extra-index-url=https://www.piwheels.org/simple&amp;#34;&lt;/span&gt; &amp;gt;&amp;gt; /etc/pip.conf
+
+root@b0571199906e:/# pip3 install cython wheel pyyaml pillow
+
+root@b0571199906e:/# git clone --recursive https://github.com/pytorch/pytorch
+
+root@b0571199906e:/# cd pytorch
+
+root@b0571199906e:/# git checkout v1.4.0
+
+root@b0571199906e:/# git submodule sync --recursive
+root@b0571199906e:/# git submodule update --init --recursive
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# Fix from: https://github.com/pytorch/pytorch/issues/22564&lt;/span&gt;
+root@b0571199906e:/# git submodule update --remote third_party/protobuf
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Configure build options and build pytorch from source:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;root@b0571199906e:/# export USE_CUDA&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0
+root@b0571199906e:/# export USE_CUDNN&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0
+root@b0571199906e:/# export USE_MKLDNN&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0
+
+root@b0571199906e:/# export USE_METAL&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0
+root@b0571199906e:/# export USE_NCCL&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;OFF
+
+root@b0571199906e:/# export USE_NNPACK&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;1
+root@b0571199906e:/# export USE_QNNPACK&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;1
+root@b0571199906e:/# export USE_DISTRIBUTED&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0
+root@b0571199906e:/# export BUILD_TEST&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;0
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# Use the number of CPUs that you have available on the host machine&lt;/span&gt;
+root@b0571199906e:/# export MAX_JOBS&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; 
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# Enable NEON optimisations&lt;/span&gt;
+root@b0571199906e:/# export CFLAGS&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;-mfpu=neon -D__NEON__&amp;#34;&lt;/span&gt; 
+
+root@b0571199906e:/# python3 setup.py bdist_wheel
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Copy out the built wheel&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;####################### In Host #######################&lt;/span&gt;
+$ docker cp pytorch_builder:/pytorch/dist/. .
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Optional: Build torchvision&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;$ docker run -it --name pytorch_builder choonkiatlee/raspbian:latest
+
+&lt;span style=&#34;color:#75715e&#34;&gt;####################### In Docker Container #######################&lt;/span&gt;
+root@b0571199906e:/# git clone https://github.com/pytorch/vision.git
+root@b0571199906e:/# cd vision
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# Remember to install the built pytorch wheel from before&lt;/span&gt;
+root@b0571199906e:/# pip3 install /pytorch/dist/.
+root@b0571199906e:/# python3 setup.py bdist_wheel
+
+&lt;span style=&#34;color:#75715e&#34;&gt;####################### In Host #######################&lt;/span&gt;
+$ docker cp pytorch_builder:/vision/dist/. .
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Bonus! Easier method:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;sudo apt-get update &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; sudo apt-get install qemu-user-static qemu binfmt-support
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# Clone the repo to get the above commands as a single script&lt;/span&gt;
+git clone https://github.com/choonkiatlee/pi-torch.git
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# Override the entrypoint&lt;/span&gt;
+docker create --name pytorch_builder choonkiatlee/raspbian:build qemu-arm-static /bin/bash install_pytorch.sh
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# Copy the build script onto the docker container and run the container&lt;/span&gt;
+docker cp pi-torch/install_pytorch.sh pytorch_builder:/install_pytorch.sh
+docker start pytorch_builder
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# Attach to the container to see the output&lt;/span&gt;
+docker attach pytorch_builder
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+      </item>
+    
+      <item>
         <title>Raspbian on your laptop: QEMU</title>
-        <link>/posts/00002-raspbian-docker/</link>
+        <link>/posts/00002-raspbian-qemu/</link>
         <pubDate>Mon, 20 Apr 2020 23:45:41 &#43;08</pubDate>
         <author>Choon Kiat (CK)</author>
-        <guid>/posts/00002-raspbian-docker/</guid>
+        <guid>/posts/00002-raspbian-qemu/</guid>
         <description>&lt;h2 id=&#34;tldr&#34;&gt;TLDR&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;qemu-raspbian&lt;/code&gt; is a docker image that allows you to run a fast raspbian image built for ARM directly on your x86 desktop. Test it out here:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://hub.docker.com/r/choonkiatlee/raspbian&#34;&gt;&lt;code&gt;raspbian&lt;/code&gt;&lt;/a&gt; is a docker image that allows you to run a fast raspbian image built for ARM directly on your x86 desktop. Test it out here:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker run -it --rm choonkiatlee/raspbian:faithful
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;
 &lt;p&gt;Recently, I&amp;rsquo;ve been very interested in running machine learning algorithms on edge devices such as the Raspberry Pi.&lt;/p&gt;
@@ -26,10 +134,12 @@
 &lt;p&gt;However, I could not find any pre-compiled pytorch wheels for my Raspberry Pi. Thus, I decided to compile my own wheels. However, the compilation process takes really long (&amp;gt;36 hours) and so I decided to try leverage my own computer (or an Azure VM) to do the job for me instead.&lt;/p&gt;
 &lt;h2 id=&#34;first-steps-qemu&#34;&gt;First steps: QEMU&lt;/h2&gt;
 &lt;p&gt;I was first inspired by @nmilosev&amp;rsquo;s article &lt;a href=&#34;https://nmilosev.svbtle.com/compling-arm-stuff-without-an-arm-board-build-pytorch-for-the-raspberry-pi%5D&#34;&gt;https://nmilosev.svbtle.com/compling-arm-stuff-without-an-arm-board-build-pytorch-for-the-raspberry-pi&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;The gist of the solution is that we can use the QEMU emulator to run programs compiled for ARM on our own x86 host machine. Using the qemu-user programs, we can use QEMU in the &lt;code&gt;User-mode emulation&lt;/code&gt; operation mode. In this mode, QEMU can launch Linux processes compiled for one CPU (Raspberry Pi) on another CPU (x86_64 host), and will translate syscalls on the fly. This way, we are still interfacing with the native kernel in the same way as any native piece of software.&lt;/p&gt;
-&lt;p&gt;&amp;lt; Insert Image here&amp;gt;&lt;/p&gt;
+&lt;p&gt;The gist of the solution is that we can use the QEMU emulator to run programs compiled for ARM on our own x86 host machine. Using the qemu-user programs, we can use QEMU in the &lt;code&gt;User Mode Emulation&lt;/code&gt; operation mode. In this mode, QEMU can launch Linux processes compiled for one CPU (Raspberry Pi) on another CPU (x86_64 host), and will translate syscalls on the fly. This way, we are still interfacing with the native kernel in the same way as any native piece of software.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;qemu_emulation.png&#34; alt=&#34;Comparison of emulation modes&#34;&gt;&lt;/p&gt;
 &lt;p&gt;This brings much benefits as we no longer have to emulate all the hardware, which is slow. We also do not need to emulate the kernel, which is where most of the emulation computation takes place.&lt;/p&gt;
 &lt;p&gt;Once we&amp;rsquo;ve installed the QEMU user emulation software, we can run the Raspbian bash whilst mounting the Raspbian rootFS, which gives us a bash shell that for most intents and purposes mimics one running on the RPI!&lt;/p&gt;
+&lt;h2 id=&#34;now-for-some-code&#34;&gt;Now for some code&amp;hellip;&lt;/h2&gt;
+&lt;p&gt;The following instructions have been adapted from the very good tutorial &lt;a href=&#34;https://wiki.debian.org/RaspberryPi/qemu-user-static&#34;&gt;here!&lt;/a&gt;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Install the QEMU emulation software&lt;/p&gt;
@@ -94,6 +204,13 @@ uname -a
 &lt;/ol&gt;
 &lt;p&gt;This is extremely useful, and allows you to easily edit and test your distribution before you burn it to an SD card for the RPi!&lt;/p&gt;
 &lt;p&gt;However, this involves a lot of steps, and is hard to automate. In the next post, we will discuss how to create a docker container using the principles listed here to create our Raspbian docker image!&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;References:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.debian.org/RaspberryPi/qemu-user-static&#34;&gt;https://wiki.debian.org/RaspberryPi/qemu-user-static&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://nmilosev.svbtle.com/compling-arm-stuff-without-an-arm-board-build-pytorch-for-the-raspberry-pi&#34;&gt;https://nmilosev.svbtle.com/compling-arm-stuff-without-an-arm-board-build-pytorch-for-the-raspberry-pi&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.cnblogs.com/pengdonglin137/p/5020143.html#_lab2_0_0&#34;&gt;https://www.cnblogs.com/pengdonglin137/p/5020143.html#_lab2_0_0&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
       </item>
     

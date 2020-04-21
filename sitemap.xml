@@ -3,6 +3,56 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/categories/</loc>
+    <lastmod>2020-04-21T17:45:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/00003-pi_torch/</loc>
+    <lastmod>2020-04-21T17:45:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/docker/</loc>
+    <lastmod>2020-04-21T17:45:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/docker/</loc>
+    <lastmod>2020-04-21T17:45:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/</loc>
+    <lastmod>2020-04-21T17:45:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/raspberry-pi/</loc>
+    <lastmod>2020-04-21T17:45:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/raspberry-pi/</loc>
+    <lastmod>2020-04-21T17:45:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/series/raspbian-on-your-laptop/</loc>
+    <lastmod>2020-04-21T17:45:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/series/</loc>
+    <lastmod>2020-04-21T17:45:41+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-04-21T17:45:41+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/projects/finderr/</loc>
     <lastmod>2020-04-21T04:03:11+08:00</lastmod>
   </url>
@@ -23,57 +73,12 @@
   </url>
   
   <url>
-    <loc>/posts/</loc>
-    <lastmod>2020-04-21T02:26:39+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/projects/marslander/</loc>
     <lastmod>2020-04-21T01:38:28+08:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2020-04-20T23:45:41+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/docker/</loc>
-    <lastmod>2020-04-20T23:45:41+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/docker/</loc>
-    <lastmod>2020-04-20T23:45:41+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/raspberry-pi/</loc>
-    <lastmod>2020-04-20T23:45:41+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/raspberry-pi/</loc>
-    <lastmod>2020-04-20T23:45:41+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/series/raspbian-on-your-laptop/</loc>
-    <lastmod>2020-04-20T23:45:41+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/posts/00002-raspbian-docker/</loc>
-    <lastmod>2020-04-20T23:45:41+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/series/</loc>
-    <lastmod>2020-04-20T23:45:41+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
+    <loc>/posts/00002-raspbian-qemu/</loc>
     <lastmod>2020-04-20T23:45:41+08:00</lastmod>
   </url>
   
