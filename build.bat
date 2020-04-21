@@ -1,4 +1,4 @@
-hugo.exe -D 
+hugo.exe
 
 cd  public 
 git add .

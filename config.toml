@@ -1,49 +1,79 @@
-baseURL = "https://choonkiatlee.github.io/"
+baseURL = "/"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "Choon Kiat (CK)"
 
-theme = "soho"
+theme = "lanyon"
 
 DefaultContentLanguage = "en"
 enableInlineShortcodes = true
 summarylength = 10
 enableEmoji = true
 
-staticDir = "static"
+# DisqusShortname = "choonkiatlee"
 
 [params]
-description = ""
-# gravatar = "soho@example.com"
-profilePicture = "images/profile.png"
-copyright = "Choon Kiat Lee (CK)"
-license = "CC BY-SA 4.0"
-licenseURL = "https://creativecommons.org/licenses/by-sa/4.0"
+  Title = "Curious Koala"
+  # Tagline = "Choon Kiat (CK)"
+  Author = "Choon Kiat (CK)"
+  profilePicture = "images/curious-koala.png"
+  DateForm = "2 Jan 2006"
+  mainSections = [
+    "posts"
+  ]
+  description = "Just another curious koala clinging on to the pursuit of knowledge"
 
-  [[params.socialIcons]]
-  icon = "fa-linkedin"
-  title = "Linkedin"
-  url = "#"
+  enableUtterance = true
 
-  [[params.socialIcons]]
-  icon = "fa-github"
-  title = "GitHub"
-  url = "#"
+
+
+# Deal with links
+canonifyurls = false
+[permalinks]
+  post = ":year/:month/:day/:title/"
+  fixed = ":title/"
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+series = "series"
 
 [menu]
 
   [[menu.main]]
   name = "Posts"
-  weight = 100
   identifier = "posts"
+  title = "Posts"
+  weight = 100
   url = "/posts/"
 
   [[menu.main]]
   name = "About"
   identifier = "about"
-  weight = 300
+  weight = 200
   url = "/about/"
 
+  [[menu.main]]
+  name = "Projects"
+  identifier = "projects"
+  title = "Projects"
+  weight = 300
+  url = "/projects/"
+
+  [[menu.main]]
+  name = "Categories"
+  identifier = "categories"
+  pre = "toptitlebar-false"           # Note that this is a hack used to indicate that this menu shouldn't be displayed on the top titlebar  
+  title = "Categories Section"
+  weight = 400
+  url = "/categories/"
+
 [markup]
+
+  # [markup.goldmark]
+  #   [goldmark.extensions]
+  #     typographer = true
+  #   [goldmark.renderer]
+  #     unsafe=true
 
   [markup.highlight]
   codeFences = true
@@ -55,4 +85,8 @@ licenseURL = "https://creativecommons.org/licenses/by-sa/4.0"
   noClasses = true
   style = "monokai"
   tabWidth = 4
+
+[blackfriday]
+  plainIDAnchors = true
+  hrefTargetBlank = true
 

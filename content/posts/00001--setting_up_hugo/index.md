@@ -1,15 +1,12 @@
 ---
-title: "First_post"
+title: "TIL: Setting up Hugo to work with Github Pages"
 date: 2020-04-20T17:04:49+08:00
-draft: true
+author: "Choon Kiat Lee"
+draft: false
+postNumber: 1
 ---
 
-
-# TIL: Setting up Hugo to work with Github Pages
-
 Unlike Jekyll, Hugo does not work with Github Pages out of the box. 
-
-One very simple way of doing this 
 
 The biggest worry for me was that I did not want the commit history of my site to be polluted with large changes to the generated files. Ideally, we want to separate the commit histories of the source files and the generated files. 
 
@@ -17,7 +14,9 @@ One simple way of doing this is simply by creating 2 github repositories. One fo
 
 However, just for fun, I wondered if one could still achieve the original requirement of source and generated file separation using only one github repo, which would make things much cleaner. This is complicated by the fact that for a Github User Page, the page can only be served out of the master branch. 
 
-We outline a simple solution below using different __branches__. 
+We outline a simple solution below using different branches. 
+
+1) Create a new repository and a new branch called source to store our source files. Note that we also need to ignore the `public/` folder, which is where all our generated files from Hugo will be stored.
 
 ```bash
 # Create the directory structure starting from an empty git repo
@@ -29,7 +28,11 @@ git checkout --orphan source
 
 # Setup the .gitignore file
 echo public/ >> .gitignore
+```
 
+2) Initialise our new Hugo site! (Based off the official [Hugo documentation](https://gohugo.io/getting-started/quick-start/))
+   
+```bash
 # Initialise our hugo site
 hugo new site . --force
 
@@ -39,13 +42,22 @@ echo 'theme = "ananke"' >> config.toml
 
 # (Optional -- Add some content)
 hugo new posts/my-first-post.md
+```
+3) Initialise our master branch within the public directory. All our generated files will live here, and can be pushed directly to our main branch on our Github Pages repository.
 
+
+```bash
 # Setup the generated files git repo
 git clone https://github.com/choonkiatlee/choonkiatlee.github.io.git public
 
 # Generate the site for the first time
 hugo -D
+```
 
+
+4) Push all changes to the repository and watch the magic happen!
+
+```bash
 # Commit the source files
 git add .
 git commit -m "Initial commit of source files"
@@ -58,18 +70,33 @@ git commit -m "Initial commit of generated site"
 git push 
 ```
 
-Local directory setup: 
+This results in a local directory setup that looks like this:
 ```
 .
-├── archetypes
-├── content
-│   └── posts
-|   .
-|   .
-|   .
-└── public
+├── archetypes (Source Files -- in the Source branch)
+├── build.sh 
+├── ...
+└── public     (Generated Files -- in the Master branch)
     └── css
     └── tags
     └── ...
+```
+
+5) Lastly, you can build and push your entire site to github with the following script. The commands can also be run as-is on windows using the command prompt if you have git configured on your path.
+
+```bash
+#!/bin/bash
+
+# Build your site
+hugo
+
+# Commit and push
+cd  public 
+git add .
+git commit -m "Update generated website"
+
+# Force push because we don't care about the state of our master branch, we just want to push our currently generated files
+git push -f
+cd ..
 ```
 
