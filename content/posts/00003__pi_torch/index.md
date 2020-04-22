@@ -26,7 +26,7 @@ We used the raspbian image available [here](https://hub.docker.com/r/choonkiatle
 
 The compiled pytorch / torchvision wheels can be found [here](https://github.com/choonkiatlee/pi-torch). 
 
-More information about the QEMU user-mode emulation used in the docker image can be found [here] ( {{< relref "posts/00002--raspbian-qemu" >}})
+More information about the QEMU user-mode emulation used in the docker image can be found [here] ( {{< relref "posts/00002__raspbian-qemu" >}})
 
 ## Build Process:
 

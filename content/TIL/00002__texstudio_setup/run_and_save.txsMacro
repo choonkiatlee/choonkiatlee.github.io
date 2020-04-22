@@ -1,0 +1,32 @@
+{
+    "abbrev": "",
+    "description": [
+        "Compile and run current file"
+    ],
+    "formatVersion": 1,
+    "menu": "",
+    "name": "Run current file",
+    "shortcut": "Ctrl+Shift+R",
+    "tag": [
+        "%SCRIPT",
+        "",
+        "function quote(filename){",
+        "\treturn '\"' + filename + '\"';",
+        "}",
+        "",
+        "var filename = app.getCurrentFileName();",
+        "var dir = filename.substring(0, filename.lastIndexOf(\"/\"));",
+        "var pdflatexcmd = '../MikTex/texmfs/install/miktex/bin/x64/pdflatex.exe  -src -interaction=nonstopmode '",
+        "var proc = system(pdflatexcmd + quote(filename), dir);",
+        "proc.waitForFinished();",
+        "",
+        "var pdfFilename = quote(filename.replace(/\\.[^/.]+$/, \".pdf\"));",
+        "",
+        "app.runInternalCommand(\"txs:///view-pdf-internal\" , \"--embedded\", pdfFilename);",
+        "",
+        "",
+        "",
+        ""
+    ],
+    "trigger": ""
+}
