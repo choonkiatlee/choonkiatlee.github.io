@@ -8,7 +8,7 @@
   </url>
   
   <url>
-    <loc>/posts/00003-pi_torch/</loc>
+    <loc>/posts/00003__pi_torch/</loc>
     <lastmod>2020-04-21T17:45:41+08:00</lastmod>
   </url>
   
@@ -78,12 +78,17 @@
   </url>
   
   <url>
-    <loc>/posts/00002-raspbian-qemu/</loc>
+    <loc>/posts/00002__raspbian-qemu/</loc>
     <lastmod>2020-04-20T23:45:41+08:00</lastmod>
   </url>
   
   <url>
-    <loc>/posts/00001-setting_up_hugo/</loc>
+    <loc>/til/00001__setting_up_hugo/</loc>
+    <lastmod>2020-04-20T17:04:49+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/til/</loc>
     <lastmod>2020-04-20T17:04:49+08:00</lastmod>
   </url>
   

@@ -10,14 +10,14 @@
     
       <item>
         <title>Compiling Pytorch for the Raspberry Pi</title>
-        <link>/posts/00003-pi_torch/</link>
+        <link>/posts/00003__pi_torch/</link>
         <pubDate>Tue, 21 Apr 2020 17:45:41 &#43;08</pubDate>
         <author>Choon Kiat (CK)</author>
-        <guid>/posts/00003-pi_torch/</guid>
+        <guid>/posts/00003__pi_torch/</guid>
         <description>&lt;h1 id=&#34;tldr&#34;&gt;TLDR:&lt;/h1&gt;
 &lt;p&gt;We used the raspbian image available &lt;a href=&#34;https://hub.docker.com/r/choonkiatlee/raspbian&#34;&gt;here&lt;/a&gt; to compile a version of Pytorch for the Raspberry Pi. This is an armv7l image that has been compiled with NEON optimisations and NNPACK / QNNPACK, allowing it to run decently fast on the resource constrained RPi.&lt;/p&gt;
 &lt;p&gt;The compiled pytorch / torchvision wheels can be found &lt;a href=&#34;https://github.com/choonkiatlee/pi-torch&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;More information about the QEMU user-mode emulation used in the docker image can be found [here] ( /posts/00002-raspbian-qemu/)&lt;/p&gt;
+&lt;p&gt;More information about the QEMU user-mode emulation used in the docker image can be found [here] ( /posts/00002__raspbian-qemu/)&lt;/p&gt;
 &lt;h2 id=&#34;build-process&#34;&gt;Build Process:&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;
@@ -118,10 +118,10 @@ docker attach pytorch_builder
     
       <item>
         <title>Raspbian on your laptop: QEMU</title>
-        <link>/posts/00002-raspbian-qemu/</link>
+        <link>/posts/00002__raspbian-qemu/</link>
         <pubDate>Mon, 20 Apr 2020 23:45:41 &#43;08</pubDate>
         <author>Choon Kiat (CK)</author>
-        <guid>/posts/00002-raspbian-qemu/</guid>
+        <guid>/posts/00002__raspbian-qemu/</guid>
         <description>&lt;h2 id=&#34;tldr&#34;&gt;TLDR&lt;/h2&gt;
 &lt;p&gt;&lt;a href=&#34;https://hub.docker.com/r/choonkiatlee/raspbian&#34;&gt;&lt;code&gt;raspbian&lt;/code&gt;&lt;/a&gt; is a docker image that allows you to run a fast raspbian image built for ARM directly on your x86 desktop. Test it out here:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;docker run -it --rm choonkiatlee/raspbian:faithful
@@ -212,90 +212,6 @@ uname -a
 &lt;li&gt;&lt;a href=&#34;https://www.cnblogs.com/pengdonglin137/p/5020143.html#_lab2_0_0&#34;&gt;https://www.cnblogs.com/pengdonglin137/p/5020143.html#_lab2_0_0&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-      </item>
-    
-      <item>
-        <title>TIL: Setting up Hugo to work with Github Pages</title>
-        <link>/posts/00001-setting_up_hugo/</link>
-        <pubDate>Mon, 20 Apr 2020 17:04:49 &#43;08</pubDate>
-        <author>Choon Kiat (CK)</author>
-        <guid>/posts/00001-setting_up_hugo/</guid>
-        <description>&lt;p&gt;Unlike Jekyll, Hugo does not work with Github Pages out of the box.&lt;/p&gt;
-&lt;p&gt;The biggest worry for me was that I did not want the commit history of my site to be polluted with large changes to the generated files. Ideally, we want to separate the commit histories of the source files and the generated files.&lt;/p&gt;
-&lt;p&gt;One simple way of doing this is simply by creating 2 github repositories. One for the generated site and one for the source files used to generate the site. By adding the generated site repository as a submodule of the source file repository, both source and generated repositories will be committed together. This is the approach given in the &lt;a href=&#34;https://gohugo.io/hosting-and-deployment/hosting-on-github/#step-by-step-instructions&#34;&gt;Hugo Docs&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;However, just for fun, I wondered if one could still achieve the original requirement of source and generated file separation using only one github repo, which would make things much cleaner. This is complicated by the fact that for a Github User Page, the page can only be served out of the master branch.&lt;/p&gt;
-&lt;p&gt;We outline a simple solution below using different branches.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Create a new repository and a new branch called source to store our source files. Note that we also need to ignore the &lt;code&gt;public/&lt;/code&gt; folder, which is where all our generated files from Hugo will be stored.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Create the directory structure starting from an empty git repo&lt;/span&gt;
-git clone https://github.com/choonkiatlee/choonkiatlee.github.io.git
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# Create a new branch called source that will store our source files&lt;/span&gt;
-cd choonkiatlee.github.io
-git checkout --orphan source
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# Setup the .gitignore file&lt;/span&gt;
-echo public/ &amp;gt;&amp;gt; .gitignore
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
-&lt;li&gt;Initialise our new Hugo site! (Based off the official &lt;a href=&#34;https://gohugo.io/getting-started/quick-start/&#34;&gt;Hugo documentation&lt;/a&gt;)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Initialise our hugo site&lt;/span&gt;
-hugo new site . --force
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# (Optional -- Add themes)&lt;/span&gt;
-git submodule add https://github.com/budparr/gohugo-theme-ananke.git themes/ananke
-echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;theme = &amp;#34;ananke&amp;#34;&amp;#39;&lt;/span&gt; &amp;gt;&amp;gt; config.toml
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# (Optional -- Add some content)&lt;/span&gt;
-hugo new posts/my-first-post.md
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;Initialise our master branch within the public directory. All our generated files will live here, and can be pushed directly to our main branch on our Github Pages repository.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Setup the generated files git repo&lt;/span&gt;
-git clone https://github.com/choonkiatlee/choonkiatlee.github.io.git public
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# Generate the site for the first time&lt;/span&gt;
-hugo -D
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;4&#34;&gt;
-&lt;li&gt;Push all changes to the repository and watch the magic happen!&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Commit the source files&lt;/span&gt;
-git add .
-git commit -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Initial commit of source files&amp;#34;&lt;/span&gt;
-git push --set-upstream origin source
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# Commit the main site&lt;/span&gt;
-cd public
-git add .
-git commit -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Initial commit of generated site&amp;#34;&lt;/span&gt;
-git push 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This results in a local directory setup that looks like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;.
-├── archetypes (Source Files -- in the Source branch)
-├── build.sh 
-├── ...
-└── public     (Generated Files -- in the Master branch)
-    └── css
-    └── tags
-    └── ...
-&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;5&#34;&gt;
-&lt;li&gt;Lastly, you can build and push your entire site to github with the following script. The commands can also be run as-is on windows using the command prompt if you have git configured on your path.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/bin/bash
-&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
-&lt;span style=&#34;color:#75715e&#34;&gt;# Build your site&lt;/span&gt;
-hugo
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# Commit and push&lt;/span&gt;
-cd  public 
-git add .
-git commit -m &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Update generated website&amp;#34;&lt;/span&gt;
-
-&lt;span style=&#34;color:#75715e&#34;&gt;# Force push because we don&amp;#39;t care about the state of our master branch, we just want to push our currently generated files&lt;/span&gt;
-git push -f
-cd ..
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
       </item>
     
 
