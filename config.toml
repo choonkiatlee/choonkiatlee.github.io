@@ -47,16 +47,23 @@ series = "series"
   url = "/posts/"
 
   [[menu.main]]
+  name = "TIL"
+  identifier = "TIL"
+  title = "TIL (Today I Learned)"
+  weight = 200
+  url = "/til/"
+
+  [[menu.main]]
   name = "About"
   identifier = "about"
-  weight = 200
+  weight = 300
   url = "/about/"
 
   [[menu.main]]
   name = "Projects"
   identifier = "projects"
   title = "Projects"
-  weight = 300
+  weight = 400
   url = "/projects/"
 
   [[menu.main]]
@@ -64,7 +71,7 @@ series = "series"
   identifier = "categories"
   pre = "toptitlebar-false"           # Note that this is a hack used to indicate that this menu shouldn't be displayed on the top titlebar  
   title = "Categories Section"
-  weight = 400
+  weight = 500
   url = "/categories/"
 
 [markup]
