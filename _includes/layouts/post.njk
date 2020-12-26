@@ -1,0 +1,72 @@
+---
+#layout: layouts/base.njk
+permalink: "{{ page.fileSlug }}/"
+---
+{% extends "layouts/base.njk" %}
+
+{% block headerLogo%}
+  <div class="header-logo">
+    {% if icon %}
+      {% if "/" in icon %}
+        <img alt="{{ title }}" src="{{ icon }}">
+      {% else %}
+        <img alt="{{ title }}" src="/img/header/{{ icon }}">
+      {% endif %}
+    {% else %}
+      <img alt="{{ title }}" src="/img/nav/about.svg">
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block extraArticleHeader %}
+  {% if tags %}
+    <div id="more-info">
+      <div id="note-tag">
+        {% for tag in tags %}
+          {% if tag != "posts" %}
+            <a href="/tags/{{ tag | slug }}">{{ tag }}</a>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div id="last-modified">
+				{{ page.inputPath | lastModifiedDate  | htmlDateString }}
+				/
+				<a href="https://github.com/dinhanhthi/dinhanhthi.com/edit/dev/{{ page.inputPath }}">Edit on Github</a>
+			</div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block article %}
+  <article>
+    <div class="container normal mt-2 page-note">
+      {% if toc %}
+        {{ content | toc | safe }}
+        {{ content | safe }}
+      {% else %}
+        {{ content | safe }}
+      {% endif %}
+      {% if notfull %}
+        <p style="font-style: italic; color: #777; font-size: 0.95rem; margin: 3rem 0 0 0; padding-top: 10px; border-top: 1px solid #555;">
+          <sup style="color: #bbb">•</sup>{{ other_data.notfull }}
+        </p>
+      {% endif %}
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "{{ title }}",
+        "image": [],
+        "author": "{{ metadata.author.name }}",
+        "genre": "{{ metadata.genre }}",
+        "url": "{{ metadata.url }}{{ canonicalUrl or page.url }}",
+        "mainEntityOfPage": "{{ metadata.url }}{{ canonicalUrl or page.url }}",
+        "datePublished": "{{ page.date | htmlDateString }}",
+        "dateModified": "{{ page.inputPath | lastModifiedDate  | htmlDateString }}",
+        "description": "{{ content | striptags | truncate(140) }}"
+      }
+    </script>
+  </article>
+{% endblock %}

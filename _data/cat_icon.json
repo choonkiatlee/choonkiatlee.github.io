@@ -1,0 +1,23 @@
+{
+	"Yakk": {
+		"svg": "/img/cats/algo.svg"
+	},
+	"Embedded Computing": {
+		"svg": "/img/cats/embedded.svg"
+	},
+	"Machine Learning": {
+		"svg": "/img/cats/ml.svg"
+	},
+	"Data Science": {
+		"svg": "/img/cats/data-science.svg"
+	},
+	"Misc. Notes": {
+		"svg": "/img/cats/others.svg"
+	},
+	"Others": {
+		"svg": "/img/cats/others.svg"
+	},
+	"Python": {
+		"svg": "/img/cats/python.svg"
+	}
+}

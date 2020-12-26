@@ -1,0 +1,115 @@
+/* "Content-visibility: auto" move the images over the other elements
+   Set z-index to keep the nav over the rasterized images */
+
+header nav {
+  z-index: 10;
+}
+
+#nav {
+  z-index: 2;
+  position: relative;
+}
+
+/*! purgecss start ignore */
+header {
+  padding: 5.5rem 1.5rem 1rem;
+  width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  p {
+    margin-top: 1rem;
+  }
+
+  .header-logo {
+    width: $header-logo;
+    height: $header-logo;
+    margin-bottom: 1rem;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .social {
+    margin-top: 0.5rem;
+    a {
+      margin-right: 10px;
+      &:last-child {
+        margin-right: 0;
+      }
+
+      @media (min-width: $grid-lg) {
+        margin-right: 20px;
+      }
+
+      img {
+        border-radius: 50%;
+      }
+    }
+  }
+
+  #more-info{
+    padding: 1rem;
+    #note-tag{
+      padding-bottom: 10px;
+      border-bottom: 1px solid #444;
+      & > a{
+        margin-right: 10px;
+        &::before{
+          content: "#";
+        }
+      }
+    }
+    #last-modified{
+      padding-top: 10px;
+      font-style: italic;
+    }
+  }
+}
+
+#reading-progress {
+  z-index: 3;
+  border-bottom: 1px solid $c-yellow;
+  width: 100vw;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  transform: translate(-100vw, 0);
+  will-change: transform;
+  pointer-events: none;
+}
+
+.intro {
+  font-size: 1.02rem;
+  b,
+  strong {
+    color: $c-yellow;
+    font-weight: normal;
+  }
+  a {
+    color: #fff;
+  }
+}
+
+.job {
+  span {
+    background: $c-yellow;
+    color: #000;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 1.02rem;
+  }
+}
+/*! purgecss end ignore */

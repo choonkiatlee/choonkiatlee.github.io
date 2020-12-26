@@ -1,0 +1,130 @@
+[
+	{
+		"name": "Experiences",
+		"icon": "/img/about/exp.svg",
+		"list": [
+			{
+				"where": "Goldman Sachs Asset Management",
+				"url": "https://www.gsam.com/",
+				"title": "Fixed Income Strat",
+				"date": "8/2020 — Present",
+				"activity": "I work on the GSAM Fixed Income Strats team, performing quantitative research into global fixed income markets",
+				"tech": [
+					{
+						"name": "Python",
+						"icon": "/img/about/python.svg"
+					}
+				]
+			},
+			{
+				"where": "Finderr",
+				"url": "",
+				"title": "Co-Founder",
+				"date": "2013 — current",
+				"activity": "Augmented Reality app that allows users to find their lost items",
+				"tech": [
+					{
+						"name": "Python",
+						"icon": "/img/about/python.svg"
+					},
+					{
+						"name": "Javascript",
+						"icon": "/img/about/js.svg"
+					},
+					{
+						"name": "Swift",
+						"icon": "/img/about/swift.svg"
+					},
+					{
+						"name": "Git",
+						"icon": "/img/about/git.svg"
+					},
+					{
+						"name": "Docker",
+						"icon": "/img/about/docker.svg"
+					},
+					{
+						"name": "Pytorch",
+						"icon": "/img/about/pytorch.svg"
+					}
+				]
+			},
+			{
+				"where": "Featurespace",
+				"url": "https://www.featurespace.com/",
+				"title": "Data Science Intern",
+				"date": "June 2018 — Sept 2018",
+				"activity": "Led a team of interns to build a tool to detect fraudulent behaviour using raw user session data (eg: key-press timings and mouse movements)",
+				"tech": [
+					{
+						"name": "Python",
+						"icon": "/img/about/python.svg"
+					},
+					{
+						"name": "Scikit-learn",
+						"icon": "/img/about/scikit-learn.svg"
+					},
+					{
+						"name": "Flask",
+						"icon": "/img/about/flask.svg"
+					},
+					{
+						"name": "Bokeh",
+						"icon": "/img/about/bokeh.svg"
+					},
+					{
+						"name": "GNU Bash",
+						"icon": "/img/about/bash_.svg"
+					},
+					{
+						"name": "Git",
+						"icon": "/img/about/git.svg"
+					}
+				]
+			},
+			{
+				"where": "DREP",
+				"url": "https://www.featurespace.com/",
+				"title": "Software Engineering Intern",
+				"date": "Dec 2017 — Jan 2018",
+				"activity": "Developed software tools to aggregate Facebook and Twitter data for marketing analysis",
+				"tech": [
+					{
+						"name": "C#",
+						"icon": "/img/about/csharp.svg"
+					},
+					{
+						"name": "Visual Basic",
+						"icon": "/img/about/vbdotnet.svg"
+					}
+				]
+			},
+			{
+				"where": "Schneider Electric Eurotherm",
+				"url": "https://www.eurotherm.com/",
+				"title": "Software Engineering Intern",
+				"date": "Jun 2017 — Sep 2018",
+				"activity": "Developed OPC-UA server for a proprietary embedded platform running eLinux",
+				"tech": [
+					{
+						"name": "C/C++",
+						"icon": "/img/about/cpp.svg"
+					}
+				]
+			}
+		]
+	},
+	{
+		"name": "Education",
+		"icon": "/img/about/education.svg",
+		"list": [
+			{
+				"where": "University of Cambridge",
+				"url": "https://www.univ-tours.fr/",
+				"title": "Masters of Engineering",
+				"date": "2016 — 2020",
+				"activity": "General Engineering degree, specialising in information and electronics engineering."
+			}
+		]
+	}
+]

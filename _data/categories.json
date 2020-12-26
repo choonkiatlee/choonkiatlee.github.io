@@ -1,0 +1,27 @@
+[
+   {
+      "name": "Yakk",
+      "color": "#e97c8e",
+      "svg": "/img/cats/algo.svg"
+   },
+   {
+      "name": "Embedded Computing",
+      "color": "#fdcb6e",
+      "svg": "/img/cats/embedded.svg"
+   },
+   {
+      "name": "Python",
+      "color": "#84f9ff",
+      "svg": "/img/cats/python.svg"
+   },
+   {
+      "name": "Machine Learning",
+      "color": "#b5ffb5",
+      "svg": "/img/cats/data-science.svg"
+   },
+   {
+      "name": "Misc. Notes",
+      "color": "#fde193",
+      "svg": "/img/cats/others.svg"
+   }
+]

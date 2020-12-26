@@ -1,0 +1,83 @@
+/*! purgecss start ignore */
+.page-note {
+
+  .text-center{
+    text-align: center;
+  }
+
+  p{
+    margin-top: 0;
+    margin-bottom: $mb;
+    & + ul, & + ol{
+      margin-top: -0.5rem;
+    }
+  }
+  ul, ol{
+    margin-top: 0;
+    margin-bottom: $mb;
+    // padding-left: 20px;
+    li{
+      margin-bottom: 5px;
+      ul, ol{
+        margin-bottom: 5px;
+        padding-left: 20px;
+      }
+      & > *{
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  p.noindent{
+    display: none;
+    padding-left: 20px;
+    & + ul, & + ol{
+			padding-left: 20px;
+			margin-top: 0;
+    }
+  }
+
+  p.indent{
+    display: none;
+    padding-left: 40px;
+    & + ul, & + ol{
+      padding-left: 40px;
+    }
+  }
+
+  ul, ol {
+    &.indent{
+      padding-left: 40px;
+    }
+    &.noindent{
+      padding-left: 20px;
+    }
+  }
+
+  hr{
+    border-bottom: 1px solid #676767;
+    margin-bottom: $mb;
+	}
+
+	// katex
+	p.katex-block{
+		overflow-x: auto;
+		overflow-y: hidden;
+		.katex-display{
+			margin: 0!important;
+		}
+	}
+
+}
+
+#reading-list{
+  .item{
+    .author{
+      font-style: italic;
+    }
+    .intro{
+      color: #999;
+    }
+  }
+}
+/*! purgecss end ignore */

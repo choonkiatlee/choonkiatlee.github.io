@@ -1,0 +1,31 @@
+[
+    {
+        "title": "Raspbian QEMU",
+        "description": "Run raspbian on your home laptop using Docker! Useful for cross-compilation or validating programs for the RPi with the full power of your laptop",
+        "source": "https://github.com/choonkiatlee/qemu-raspbian",
+        "icon": "<img src='/img/about/raspbian.svg' height='20' width='20'>",
+        "tech": [
+            {
+                "name": "Docker",
+                "icon": "/img/about/docker.svg"
+            }
+        ]
+    },
+    {
+        "title": "JPake",
+        "icon": "🔢",
+        "source": "https://github.com/choonkiatlee/jpake-js",
+        "description": "Generate a mutual secret key using a shared weak key. Implements Password Authenticated Key Exchange by Juggling (J-PAKE) based on elliptic curves",
+        "tech": [
+            {
+                "name": "Golang",
+                "icon": "/img/about/golang.svg"
+            },
+            {
+                "name": "Typescript",
+                "icon": "/img/about/typescript.svg"
+            }
+        ],
+        "tech_text": ["cryptography"]
+    }
+]

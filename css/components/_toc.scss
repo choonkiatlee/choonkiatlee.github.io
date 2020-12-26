@@ -1,0 +1,95 @@
+div.toc {
+  margin-bottom: $mb;
+  border-left: 5px solid #aaa;
+  @include box-bg($code-bg, $code-bd);
+  padding: 15px 15px 10px 0;
+
+  // In this note
+  & > ol::before{
+    content: "In this note";
+    display: block;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #555;
+    margin: 0 0 15px;
+    font-size: 1.18rem;
+    font-family: $font-heading;
+  }
+  ol {
+    padding-left: 20px;
+    font-size: 0.9 * $font-size;
+    margin-bottom: 0;
+
+    li {
+      margin-bottom: 5px;
+      code {
+        font-size: 0.85rem;
+        background: #ececec;
+        padding: 0 4px 2px 4px;
+      }
+      ol {
+        padding-left: 10px;
+        margin-top: 7px;
+      }
+    }
+
+    @if $heading-numbering {
+      counter-reset: item;
+      list-style-type: none;
+      ol {
+        counter-reset: item;
+        list-style-type: none;
+      }
+      li {
+        &::before {
+          content: counters(item, ".") ". ";
+          counter-increment: item;
+        }
+      }
+    }
+  }
+
+  & > ol{
+    & > li{
+      & ol > li::before{
+        opacity: 0.7;
+      }
+      &::before{
+        color: $c-blue;
+      }
+    }
+  }
+
+  @media (min-width: 1300px) {
+    float: right;
+    margin-right: -280px;
+    // border-left: 1px solid #6b6b6b;
+    border-left: none;
+    width: 250px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 60px;
+    max-height: 70vh;
+    overflow: auto;
+    ol {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  @media (min-width: 1500px){
+    margin-right: -310px;
+    width: 280px;
+  }
+}
+
+/*! purgecss start ignore */
+.toc-active {
+  & > a {
+    color: #fff !important;
+  }
+
+  &::before{
+    opacity: 1!important;
+  }
+}
+/*! purgecss end ignore */
