@@ -1,0 +1,92 @@
+// COLORS
+// https://github.com/dracula/dracula-theme
+$c-background: #282a36;
+$c-current-line: #44475a;
+$c-selection: #44475a;
+$c-foreground: #f8f8f2;
+$c-comment: #6272a4;
+$c-cyan: #8be9fd;
+$c-blue: #8cc8ff; // mine
+// $c-green: #50fa7b;
+$c-green: #86f7a2; // mine
+$c-orange: #ffb86c;
+$c-pink: #ff79c6;
+// $c-purple: #bd93f9;
+$c-purple: #babaff; // mine
+$c-red: #ff5555;
+// $c-yellow: #f9c412; // mine (old)
+$c-yellow: #ffd479;
+$c-gray: #888;
+$c-bg-nav: #35373c;
+
+// FONTS
+$font-main: "Poppins", Arial, Helvetica, sans-serif;
+$font-main-var: "Poppins" var alt, Arial, Helvetica, sans-serif;
+$font-heading: "Recoleta", Arial, Helvetica, sans-serif;
+$font-code: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+$font-bold: 600;
+$font-size: 16.5px;
+$font-color: #eee;
+$a-hover: $c-yellow;
+
+// GRIDS
+$grid-xs: 350px;
+$grid-sm: 576px;
+$grid-md: 768px;
+$grid-lg: 992px;
+$grid-xl: 1200px;
+$grid-xxl: 1600px;
+$grid-w-normal: 900px;
+$grid-w-ex-normal: 1000px;
+$padding-lr: $font-size;
+$mb: 1.5 * $font-size; // margin-bottom
+$mb-code: 1.1 * $mb; // for code blocks
+
+// HEADINGs
+$heading-font: $font-heading;
+$heading-weight: 600;
+$heading-color: $font-color; // heading's color
+$heading-h1-size: $font-size * 1.8;
+$heading-h2-size: $font-size * 1.5; // h2's font size (in comparison with global $font-size)
+$heading-h3-size: $heading-h2-size * 0.87; // h3's font size (in comparison with global h2)
+$heading-h4-size: $heading-h3-size * 0.9; // h3's font size (in comparison with global h3)
+@media (max-width: $grid-md - 1px){
+  $heading-h1-size: $font-size * 1.75;
+  $heading-h2-size: $font-size * 1.43;
+  $heading-h3-size: $heading-h2-size * 0.87;
+  $heading-h4-size: $heading-h3-size * 0.9;
+}
+$heading-numbering: true;
+$mt-heading: $mb * 1.5; // margin-top heading
+$mb-heading: $mb * 0.8; // margin-bottom heading
+
+// HEADER
+$header-logo: 55px;
+
+// CODE
+$inside-padding: $font-size;
+$pre-padding: $inside-padding;
+$code-bg: #2f3240; // old
+$code-bg-inline: #6b444245;
+$code-bd: #3b3e54;
+$code-max-height: 450px;
+
+// TABLE
+
+@import "./components/mixin"; // mixsin
+@import "./components/font";
+@import "./components/main"; // init css
+@import "./components/heading";
+@import "./components/grid";
+@import "./components/index"; // for home page
+@import "./components/header";
+@import "./components/nav";
+@import "./components/footer";
+@import "./components/about"; // for about page
+@import "./components/component"; // all small components
+@import "./components/texmath"; // markdown-it-texmath
+@import "./components/post";
+@import "./components/prism-vscode"; // with my custom
+@import "./components/code";
+@import "./components/toc";
+@import "./components/img";

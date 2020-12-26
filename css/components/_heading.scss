@@ -1,0 +1,148 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-heading;
+}
+
+h1 {
+  font-family: $font-heading;
+  font-size: $heading-h1-size;
+}
+
+h2 {
+  font-size: $heading-h2-size;
+}
+
+h3 {
+  font-size: $heading-h3-size;
+}
+
+h4 {
+  font-size: $heading-h4-size;
+}
+
+@if $heading-numbering {
+  body {
+    counter-reset: h2counter;
+  }
+}
+
+.page-note {
+  & > h2,
+  h3,
+  h4 {
+    font-family: $heading-font;
+    color: $heading-color;
+    &:hover {
+      .direct-link {
+        display: inline-block;
+      }
+      a:hover {
+        color: $a-hover;
+      }
+    }
+  }
+
+  & > h2 {
+    font-size: $heading-h2-size;
+    margin: $mt-heading 0 $mb-heading 0;
+    @if not $heading-numbering{
+      &:before {
+        content: "# ";
+        color: $c-blue;
+      }
+    }
+
+    & + h3 {
+      margin-top: -0.5rem;
+    }
+  }
+
+  & > h3 {
+    font-size: $heading-h3-size;
+    margin-bottom: $mb-heading;
+    margin-top: $mt-heading;
+    @if not $heading-numbering{
+      &:before {
+        content: "● ";
+        color: #8ed08e;
+        font-size: 1.45rem;
+        vertical-align: unset;
+        line-height: 1;
+      }
+    }
+
+    & + h4 {
+      margin-top: -0.5rem;
+    }
+  }
+
+  & > h4 {
+    font-size: $heading-h4-size;
+    margin-bottom: $mb-heading;
+    margin-top: $mt-heading;
+    @if not $heading-numbering{
+      &:before {
+        content: "∴ ";
+        color: #ffa871;
+        font-size: 1.48;
+        line-height: 1;
+      }
+    }
+  }
+
+  .direct-link {
+    display: none;
+    color: #777;
+    border-bottom: none;
+    margin-left: 3px;
+  }
+
+  pre,
+  .code-output-equal,
+  .code-output-flex {
+    & + h2,
+    & + h3,
+    & + h4 {
+      margin-top: $mt-heading;
+    }
+  }
+
+  @if $heading-numbering {
+    h1 {
+      counter-reset: h2counter;
+    }
+    h2 {
+      counter-reset: h3counter;
+    }
+    h3 {
+      counter-reset: h4counter;
+    }
+
+    h3,
+    h4 {
+      &:before {
+        opacity: 0.5;
+      }
+    }
+
+    h2:before {
+      content: counter(h2counter) ".\0000a0\0000a0";
+      counter-increment: h2counter;
+      color: $c-blue;
+    }
+
+    h3:before {
+      content: counter(h2counter) "." counter(h3counter) ".\0000a0\0000a0";
+      counter-increment: h3counter;
+    }
+
+    h4:before {
+      content: counter(h2counter) "." counter(h3counter) "." counter(h4counter) ".\0000a0\0000a0";
+      counter-increment: h4counter;
+    }
+  }
+} // end page-note
