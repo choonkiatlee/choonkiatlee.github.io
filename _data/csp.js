@@ -43,7 +43,8 @@ const CSP = {
 			"https://cdnjs.cloudflare.com/",
 			"https://gist.github.com/",
 			"https://www.googletagmanager.com/",
-			"https://www.google-analytics.com"
+			"https://www.google-analytics.com",
+			"https://raw.githubusercontent.com/choonkiatlee/jpake-js/"
 		],
 		[
 			"connect-src",
