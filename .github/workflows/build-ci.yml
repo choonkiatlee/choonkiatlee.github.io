@@ -29,6 +29,8 @@ jobs:
     - name: publish
       run: |
         cd _live
+        git config --global user.email "26285364+choonkiatlee@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
         git add .
         git commit -m "update site"
         git push
