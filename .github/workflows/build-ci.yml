@@ -1,0 +1,34 @@
+name: Build site CI
+
+on:
+  push:
+    branches: [ source ]
+  pull_request:
+    branches: [ source ]
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v2
+      with:
+        ref: source
+    - name: Checkout master
+      uses: actions/checkout@v2
+      with:
+        ref: master
+        path: _live
+    - name: setup
+      run: npm ci
+    - name: build
+      run: npm run build-ci
+    - name: publish
+      run: |
+        cd _live
+        git add .
+        git commit -m "update site"
+        git push
