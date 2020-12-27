@@ -1,13 +1,11 @@
 ---
 layout: post
-title: "JPake Implementation"
+title: "JPake Calculator"
 tags: [Yakk]
 toc: false
-icon: /img/cats/data-science.svg
-keywords: JPake Yakk
+icon: /img/cats/algo.svg
+keywords: JPake Yakk pake cryptography encription elliptical modular discrete log
 ---
-
-<!-- {% assign img-url = '/img/post/yakk/jpake' %} -->
 
 ## JPake Calculator
 
@@ -15,9 +13,9 @@ This is a simple demo of the JPake JS library showing the key exchange between t
 
 After inputting the shared password and going through the 2 rounds of message passing, both Alice and Bob should have the same shared key if and only if they originally had the same password. 
 
-Note that even for the same password, the randomness inherent in the protocol means that the shared keys generated are different. This means that even if an attacker possessed the key Alice and Bob were using, they still cannot compromise the shared key between Alice and Bob!
 
-<!-- |                                                                               | Alice                            | Bob                            |
+<!-- HTML Layout of the below code.
+|                                                                               | Alice                            | Bob                            |
 | ----------------------------------------------------------------------------- | -------------------------------- | ------------------------------ |
 | Input <br/>Shared Password:                                                   | <input id="AliceSecret"></input> | <input id="BobSecret"></input> |
 | <button id="round1btn" class="button blue">Start<br/>Round 1</button>         | <pre id="AliceMsg1"></pre>       | <pre id="BobMsg1"></pre>       |

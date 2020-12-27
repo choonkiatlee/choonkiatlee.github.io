@@ -29,7 +29,7 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addPlugin(pluginRss);
 	eleventyConfig.addPlugin(pluginSyntaxHighlight);
 
-	eleventyConfig.addPlugin(require('eleventy-plugin-toc'), {
+	eleventyConfig.addPlugin(require('eleventy-plugin-nesting-toc'), {
 		tags: ['h2', 'h3', 'h4'], // which heading tags are selected headings must each have an ID attribute
 		wrapper: 'div',           // element to put around the root `ol`/`ul`
 		wrapperClass: 'toc',      // class for the element around the root `ol`/`ul`
@@ -196,7 +196,7 @@ module.exports = function (eleventyConfig) {
 		.use(require("markdown-it-anchor"), {
 			permalink: true,
 			permalinkClass: "direct-link",
-			permalinkSymbol: "#",
+			permalinkSymbol: "🔗",
 		})
 		.use(require('markdown-it-mark')) // ==mark==
 		.use(require('markdown-it-attrs'), { // use {:} options
@@ -240,7 +240,7 @@ module.exports = function (eleventyConfig) {
 			}
 		})
 		.use(require('@gerhobbelt/markdown-it-inline-text-color'))
-		;
+	;
 	eleventyConfig.setLibrary("md", markdownLibrary);
 
 	// using {% markdown %}{% endmarkdown %} inside .njk
