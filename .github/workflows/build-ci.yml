@@ -23,7 +23,7 @@ jobs:
         ref: master
         path: _live
     - name: setup
-      run: npm ci
+      run: npm install
     - name: build
       run: npm run build-ci
     - name: publish
