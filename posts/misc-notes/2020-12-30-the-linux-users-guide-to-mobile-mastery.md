@@ -30,10 +30,10 @@ pkg install termux-api
 
 You might need to grant storage permissions for Termux on Android 6 and higher. See [here](https://wiki.termux.com/wiki/Termux-setup-storage) for details.
 
-Optionally, setup git:
+Optionally, setup git and other related useful packages I normally use:
 
 ```bash
-pkg install git
+pkg install git wget
 ```
 
 ## Remote connection.
