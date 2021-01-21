@@ -19,5 +19,8 @@
 	},
 	"Python": {
 		"svg": "/img/cats/python.svg"
+	},
+	"Algorithms": {
+		"svg": "/img/cats/algo.svg"
 	}
 }

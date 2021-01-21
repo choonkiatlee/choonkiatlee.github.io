@@ -23,5 +23,10 @@
       "name": "Misc. Notes",
       "color": "#fde193",
       "svg": "/img/cats/others.svg"
+   },
+   {
+      "name": "Algorithms",
+      "color": "#b5ffb5",
+      "svg": "/img/cats/algo.svg"
    }
 ]
