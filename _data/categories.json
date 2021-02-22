@@ -5,6 +5,11 @@
       "svg": "/img/cats/algo.svg"
    },
    {
+      "name": "SecurePaste",
+      "color": "#fde193",
+      "svg": "/img/cats/project.svg"
+   },
+   {
       "name": "Embedded Computing",
       "color": "#fdcb6e",
       "svg": "/img/cats/embedded.svg"

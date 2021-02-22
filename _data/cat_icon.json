@@ -2,6 +2,9 @@
 	"Yakk": {
 		"svg": "/img/cats/algo.svg"
 	},
+	"SecurePaste": {
+		"svg": "/img/cats/project.svg"
+	},
 	"Embedded Computing": {
 		"svg": "/img/cats/embedded.svg"
 	},
