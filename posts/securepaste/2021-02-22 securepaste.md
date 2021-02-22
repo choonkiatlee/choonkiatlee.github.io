@@ -3,7 +3,7 @@ layout: post
 title: "SecurePaste"
 tags: [SecurePaste]
 toc: false
-icon: /img/cats/projects.svg
+icon: /img/cats/project.svg
 keywords: SecurePaste
 ---
 
